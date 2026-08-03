@@ -1,0 +1,2548 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Les bureaux du numérique - Enquête d'observation professionnelle</title>
+  <style>
+    /* ==========================================================================
+       RESET & FONTS
+       ========================================================================== */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif;
+      background-color: #0f172a;
+      color: #f8fafc;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+      line-height: 1.5;
+    }
+
+    /* ==========================================================================
+       HEADER & NAVIGATION
+       ========================================================================== */
+    header {
+      background: rgba(15, 23, 42, 0.95);
+      border-bottom: 1px solid #334155;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(8px);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #38bdf8;
+      letter-spacing: -0.5px;
+    }
+
+    .logo svg {
+      width: 28px;
+      height: 28px;
+      fill: #38bdf8;
+    }
+
+    nav {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.6rem 1.2rem;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      border: none;
+      outline: none;
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #0284c7, #2563eb);
+      color: #ffffff;
+      box-shadow: 0 4px 12px rgba(2, 132, 199, 0.3);
+    }
+
+    .btn-primary:hover {
+      background: linear-gradient(135deg, #0369a1, #1d4ed8);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 16px rgba(2, 132, 199, 0.4);
+    }
+
+    .btn-secondary {
+      background: #1e293b;
+      color: #cbd5e1;
+      border: 1px solid #475569;
+    }
+
+    .btn-secondary:hover {
+      background: #334155;
+      color: #ffffff;
+      border-color: #64748b;
+    }
+
+    .btn-success {
+      background: linear-gradient(135deg, #059669, #10b981);
+      color: #ffffff;
+      box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+    }
+
+    .btn-success:hover {
+      background: linear-gradient(135deg, #047857, #059669);
+      transform: translateY(-1px);
+    }
+
+    /* ==========================================================================
+       CONTAINER & SCREENS
+       ========================================================================== */
+    main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .screen {
+      display: none;
+      width: 100%;
+      height: 100%;
+      animation: fadeIn 0.4s ease forwards;
+    }
+
+    .screen.active {
+      display: flex;
+      flex-direction: column;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ==========================================================================
+       SCREEN 1: WELCOME
+       ========================================================================== */
+    #screen-welcome {
+      min-height: calc(100vh - 70px);
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      background: radial-gradient(circle at center, #1e293b 0%, #0f172a 100%);
+    }
+
+    .hero-card {
+      max-width: 800px;
+      background: rgba(30, 41, 59, 0.8);
+      border: 1px solid #334155;
+      border-radius: 16px;
+      padding: 3rem;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(10px);
+    }
+
+    .hero-title {
+      font-size: 2.25rem;
+      font-weight: 800;
+      color: #f8fafc;
+      margin-bottom: 0.5rem;
+      line-height: 1.2;
+    }
+
+    .hero-subtitle {
+      font-size: 1.1rem;
+      color: #38bdf8;
+      font-weight: 600;
+      margin-bottom: 2rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .narrative-box {
+      background: #0f172a;
+      border-left: 4px solid #0284c7;
+      padding: 1.5rem;
+      border-radius: 0 12px 12px 0;
+      margin-bottom: 2rem;
+      color: #cbd5e1;
+      font-size: 1.05rem;
+      line-height: 1.7;
+    }
+
+    .narrative-box p {
+      margin-bottom: 1rem;
+    }
+
+    .narrative-box p:last-child {
+      margin-bottom: 0;
+    }
+
+    .goals-list {
+      list-style: none;
+      margin: 1rem 0;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 0.75rem;
+    }
+
+    .goals-list li {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.95rem;
+      color: #e2e8f0;
+    }
+
+    .goals-list li::before {
+      content: "✓";
+      color: #10b981;
+      font-weight: bold;
+    }
+
+    /* ==========================================================================
+       SCREEN 2: SELECTION MENU
+       ========================================================================== */
+    #screen-selection {
+      padding: 2.5rem 2rem;
+      max-width: 1300px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .selection-header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .selection-title {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #f8fafc;
+      margin-bottom: 0.5rem;
+    }
+
+    .selection-desc {
+      color: #94a3b8;
+      font-size: 1.05rem;
+    }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+      gap: 1.75rem;
+    }
+
+    .desk-card {
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 16px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: all 0.3s ease;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    }
+
+    .desk-card:hover {
+      transform: translateY(-6px);
+      border-color: #38bdf8;
+      box-shadow: 0 15px 30px rgba(56, 189, 248, 0.15);
+    }
+
+    .desk-card-img {
+      height: 180px;
+      width: 100%;
+      background-size: cover;
+      background-position: center;
+      position: relative;
+    }
+
+    .desk-card-badge {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid #475569;
+      padding: 0.25rem 0.75rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      color: #38bdf8;
+      backdrop-filter: blur(4px);
+    }
+
+    .desk-card-body {
+      padding: 1.5rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .desk-card-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #f8fafc;
+      margin-bottom: 0.75rem;
+    }
+
+    .desk-card-desc {
+      color: #94a3b8;
+      font-size: 0.95rem;
+      line-height: 1.5;
+      margin-bottom: 1.5rem;
+      flex: 1;
+    }
+
+    .desk-card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 1rem;
+      border-top: 1px solid #334155;
+    }
+
+    .progress-text {
+      font-size: 0.85rem;
+      color: #64748b;
+    }
+
+    /* SVG Placeholder Backgrounds for Selection Cards */
+    .bg-dev {
+      background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .bg-sec {
+      background: linear-gradient(135deg, #0f172a 0%, #064e3b 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .bg-crea {
+      background: linear-gradient(135deg, #0f172a 0%, #701a75 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .bg-med {
+      background: linear-gradient(135deg, #0f172a 0%, #7c2d12 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .card-svg-icon {
+      width: 70px;
+      height: 70px;
+      opacity: 0.85;
+    }
+
+    /* ==========================================================================
+       SCREEN 3: EXPLORATION (2D OFFICE VIEW)
+       ========================================================================== */
+    #screen-investigation {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      background: #090d16;
+    }
+
+    .investigation-bar {
+      background: #1e293b;
+      border-bottom: 1px solid #334155;
+      padding: 0.75rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .investigation-info h2 {
+      font-size: 1.2rem;
+      color: #f8fafc;
+    }
+
+    .investigation-info p {
+      font-size: 0.85rem;
+      color: #94a3b8;
+    }
+
+    .investigation-stats {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .counter-badge {
+      background: #0f172a;
+      border: 1px solid #334155;
+      padding: 0.4rem 0.8rem;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      color: #38bdf8;
+      font-weight: 600;
+    }
+
+    /* 2D Office View Container */
+    .office-viewport {
+      flex: 1;
+      position: relative;
+      width: 100%;
+      max-width: 1200px;
+      margin: 1.5rem auto;
+      aspect-ratio: 16 / 9;
+      background: #111827;
+      border: 2px solid #334155;
+      border-radius: 12px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+      overflow: hidden;
+    }
+
+    /* SVG Desk Illustration Styling */
+    .office-svg-bg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    /* Interactive Objects overlay */
+    .interactive-item {
+      position: absolute;
+      cursor: pointer;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+    }
+
+    .interactive-item:hover {
+      transform: scale(1.06) translateY(-2px);
+      filter: drop-shadow(0 0 12px rgba(56, 189, 248, 0.8));
+    }
+
+    .interactive-item::after {
+      content: '';
+      position: absolute;
+      inset: -4px;
+      border: 2px dashed rgba(56, 189, 248, 0.6);
+      border-radius: 10px;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+      pointer-events: none;
+    }
+
+    .interactive-item:hover::after {
+      opacity: 1;
+    }
+
+    /* Visited state indicator */
+    .interactive-item.visited::before {
+      content: '✓';
+      position: absolute;
+      top: -6px;
+      right: -6px;
+      background: #10b981;
+      color: white;
+      font-size: 11px;
+      font-weight: bold;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.5);
+      z-index: 20;
+    }
+
+    .item-tooltip {
+      position: absolute;
+      bottom: -32px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(15, 23, 42, 0.95);
+      color: #f8fafc;
+      padding: 0.25rem 0.6rem;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      white-space: nowrap;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+      border: 1px solid #475569;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+      z-index: 30;
+    }
+
+    .interactive-item:hover .item-tooltip {
+      opacity: 1;
+    }
+
+    /* ==========================================================================
+       MODAL WINDOWS (PROFESSIONAL LOOK)
+       ========================================================================== */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(6px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      padding: 1.5rem;
+      animation: fadeIn 0.25s ease;
+    }
+
+    .modal-overlay.active {
+      display: flex;
+    }
+
+    .modal-window {
+      background: #1e293b;
+      border: 1px solid #475569;
+      border-radius: 12px;
+      width: 100%;
+      max-width: 680px;
+      max-height: 85vh;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+      overflow: hidden;
+    }
+
+    .modal-header {
+      background: #0f172a;
+      padding: 1rem 1.5rem;
+      border-bottom: 1px solid #334155;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .modal-title-group {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .modal-title-icon {
+      width: 24px;
+      height: 24px;
+      fill: #38bdf8;
+    }
+
+    .modal-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: #f8fafc;
+    }
+
+    .modal-close {
+      background: transparent;
+      border: none;
+      color: #94a3b8;
+      font-size: 1.5rem;
+      cursor: pointer;
+      line-height: 1;
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      transition: color 0.2s, background 0.2s;
+    }
+
+    .modal-close:hover {
+      color: #ffffff;
+      background: #334155;
+    }
+
+    .modal-body {
+      padding: 1.5rem;
+      overflow-y: auto;
+      color: #334155;
+    }
+
+    /* Modal Types Styling */
+    
+   /* 1. Outlook Email Mockup */
+    .email-client {
+      background: #ffffff;
+      border-radius: 8px;
+      border: 1px solid #d5dee9;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+      font-family: Arial, sans-serif;
+      color: #1e293b;
+      overflow: hidden;
+      font-size: 0.92rem;
+    }
+    .email-header {
+      background: #0078d4;
+      color: #ffffff;
+      padding: 8px 12px;
+      font-weight: 600;
+      font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .email-meta {
+      padding: 10px 14px;
+      border-bottom: 1px solid #e2e1de;
+      background: #f3f2f1;
+      font-size: 0.9rem;
+    }
+    .email-meta div {
+      margin: 2px 0;
+    }
+    .email-meta span {
+      font-weight: bold;
+      color: #475569;
+    }
+    .email-content {
+      padding: 14px;
+      font-size: 0.92rem;
+      line-height: 1.6;
+      color: #1e293b;
+      white-space: pre-line;
+    }
+
+
+  /* 2. Teams Chat Mockup */
+  .teams-client {
+    background: #f3f2f1;
+    border-radius: 8px;
+    border: 1px solid #e1dfdd;
+    font-family: 'Segoe UI', sans-serif;
+    overflow: hidden;
+  }
+  .teams-header {
+    background: #464775;
+    color: white;
+    padding: 0.75rem 1rem;
+    font-weight: 600;
+    font-size: 0.95rem;
+  }
+  .teams-messages {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+  .teams-msg {
+    background: #ffffff;
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    max-width: 85%;
+    width: fit-content; /* Les bulles s'adaptent à la taille du message */
+    align-self: flex-start;
+  }
+  /* Optionnel si vous gérez des messages envoyés par "soi-même" dans Teams */
+  .teams-msg.sent {
+    align-self: flex-end;
+    background: #e2e2f6; 
+  }
+  .teams-msg-author {
+    font-weight: 700;
+    font-size: 0.85rem;
+    color: #464775;
+    margin-bottom: 0.2rem;
+  }
+  .teams-msg-text {
+    font-size: 0.92rem;
+    color: #252423;
+    white-space: pre-line;
+  }
+
+    /* 3. Notebook / Carnet Mockup */
+    .notebook-paper {
+      background: #fffdfa;
+      border-left: 4px solid #f43f5e;
+      padding: 1.5rem;
+      border-radius: 4px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      font-family: 'Courier New', Courier, monospace;
+      color: #1c1917;
+      background-image: repeating-linear-gradient(#fffdfa, #fffdfa 27px, #e7e5e4 28px);
+      line-height: 28px;
+      font-size: 0.95rem;
+    }
+    .notebook-title {
+      font-weight: bold;
+      text-decoration: underline;
+      margin-bottom: 0.5rem;
+      font-size: 1.1rem;
+    }
+
+    /* 4. Whiteboard / Post-it Mockup */
+    .whiteboard-view {
+      background: #ffffff;
+      border: 8px solid #cbd5e1;
+      border-radius: 8px;
+      padding: 1.5rem;
+      box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
+      color: #0f172a;
+    }
+    .postit {
+      background: #fef08a;
+      color: #854d0e;
+      padding: 1rem;
+      border-radius: 2px;
+      box-shadow: 3px 3px 8px rgba(0,0,0,0.15);
+      font-family: 'Comic Sans MS', 'Chalkboard SE', sans-serif;
+      font-size: 0.95rem;
+      margin-bottom: 1rem;
+      transform: rotate(-1deg);
+    }
+
+    /* 5. Code Editor Mockup */
+    .code-editor {
+      background: #1e1e1e;
+      color: #d4d4d4;
+      font-family: Consolas, 'Courier New', monospace;
+      padding: 1.25rem;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      line-height: 1.5;
+      overflow-x: auto;
+    }
+    .code-keyword { color: #569cd6; }
+    .code-string { color: #ce9178; }
+    .code-comment { color: #6a9955; }
+    .code-function { color: #dcdcaa; }
+
+  /* 6. SMS Mobile Mockup */
+  .phone-mockup {
+    max-width: 340px;
+    margin: 0 auto;
+    background: #000000;
+    border: 12px solid #334155;
+    border-radius: 28px;
+    padding: 18px 10px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+    color: #ffffff;
+  }
+  .phone-screen {
+    background: #111111;
+    border-radius: 18px;
+    padding: 12px;
+    color: #ffffff;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .sms-bubble {
+    background: #2b2b2f;
+    color: #ffffff;
+    padding: 0.6rem 0.9rem;
+    border-radius: 18px;
+    border-bottom-left-radius: 4px;
+    max-width: 80%;
+    width: fit-content; /* S'adapte exactement à la taille du texte */
+    align-self: flex-start;
+    font-size: 0.88rem;
+    line-height: 1.4;
+    border: 0;
+  }
+  .sms-bubble.sent {
+    background: #2f6df6;
+    color: #ffffff;
+    margin-left: auto;
+    align-self: flex-end;
+    border-bottom-left-radius: 18px;
+    border-bottom-right-radius: 4px;
+  }
+
+    /* 7. Support Ticket Mockup */
+    .ticket-system {
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      padding: 1.25rem;
+      font-family: system-ui, sans-serif;
+      color: #0f172a;
+    }
+    .ticket-header {
+      border-bottom: 2px solid #0284c7;
+      padding-bottom: 0.5rem;
+      margin-bottom: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .ticket-id {
+      font-weight: 700;
+      color: #0284c7;
+    }
+
+    /* Generic Object View */
+    .generic-object-view {
+      background: #ffffff;
+      padding: 1.5rem;
+      border-radius: 8px;
+      color: #1e293b;
+      font-size: 1rem;
+      line-height: 1.6;
+    }
+
+    /* ==========================================================================
+       SCREEN 4: ANALYSIS & SYNTHESIS
+       ========================================================================== */
+    #screen-synthesis {
+      padding: 2.5rem 2rem;
+      max-width: 900px;
+      margin: 0 auto;
+      width: 100%;
+    }
+
+    .synthesis-card {
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 16px;
+      padding: 2.5rem;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    }
+
+    .synthesis-title {
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: #f8fafc;
+      margin-bottom: 0.5rem;
+    }
+
+    .synthesis-subtitle {
+      color: #38bdf8;
+      font-weight: 600;
+      margin-bottom: 2rem;
+    }
+
+    .form-group {
+      margin-bottom: 1.75rem;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 1rem;
+      font-weight: 600;
+      color: #f1f5f9;
+      margin-bottom: 0.5rem;
+    }
+
+    .form-control {
+      width: 100%;
+      background: #0f172a;
+      border: 1px solid #475569;
+      border-radius: 8px;
+      padding: 0.8rem 1rem;
+      color: #f8fafc;
+      font-family: inherit;
+      font-size: 0.95rem;
+      transition: border-color 0.2s;
+    }
+
+    .form-control:focus {
+      outline: none;
+      border-color: #38bdf8;
+      box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.2);
+    }
+
+    textarea.form-control {
+      min-height: 90px;
+      resize: vertical;
+    }
+
+    .synthesis-actions {
+      display: flex;
+      gap: 1rem;
+      justify-content: flex-end;
+      margin-top: 2rem;
+    }
+
+    /* Style pour impression / export PDF ciblé */
+  @media print {
+    /* Masque tout le contenu du site */
+    body * {
+      visibility: hidden;
+    }
+    /* Réaffiche uniquement la carte de synthèse et ses enfants */
+    #screen-summary .synthesis-card,
+    #screen-summary .synthesis-card * {
+      visibility: visible;
+    }
+    /* Repositionne la carte en haut à gauche de la page imprimée */
+    #screen-summary .synthesis-card {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      margin: 0;
+      padding: 20px;
+      background: #1e293b !important; /* Maintient un fond propre */
+      color: #ffffff !important;
+      box-shadow: none !important;
+      border: none !important;
+    }
+    /* Masque les boutons d'action sur l'impression/PDF */
+    .synthesis-actions {
+      display: none !important;
+    }
+  }
+
+    /* ==========================================================================
+       ACCESSIBILITY & RESPONSIVE
+       ========================================================================== */
+    @media (max-width: 768px) {
+      header { padding: 0.75rem 1rem; }
+      .hero-card { padding: 1.5rem; }
+      .hero-title { font-size: 1.6rem; }
+      .office-viewport { aspect-ratio: 4 / 3; }
+      .cards-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER NAVIGATION -->
+  <header>
+    <div class="logo">
+      <svg viewBox="0 0 24 24">
+        <path d="M20,18E2,18 2,4H20M20,2H4C2.89,2 2,2.89 2,4V16C2,17.11 2.89,18 4,18H0V20H24V18H20V4C20,2.89 19.1,2 18,2H20Z"/>
+      </svg>
+      <span>Les Bureaux du Numérique</span>
+    </div>
+    <nav>
+      <button id="btn-nav-home" class="btn btn-secondary" onclick="showScreen('screen-welcome')">
+        🏠 Accueil
+      </button>
+      <button id="btn-nav-selection" class="btn btn-secondary" onclick="showScreen('screen-selection')">
+        📋 Choix des pôles
+      </button>
+    </nav>
+  </header>
+
+  <!-- MAIN CONTENT CONTAINER -->
+  <main>
+
+    <!-- SCREEN 1: WELCOME -->
+    <section id="screen-welcome" class="screen active">
+      <div class="hero-card">
+        <h1 class="hero-title">Enquête d'Observation Professionnelle</h1>
+        <p class="hero-subtitle">Immersion interactive au cœur des métiers du numérique</p>
+        
+        <div class="narrative-box">
+          <p><strong>Votre mission :</strong> Vous venez d'être nommé responsable d'un pôle dans une entreprise du numérique. Malheureusement, personne n'est présent pour vous accueillir.</p>
+          <p>Votre équipe a laissé derrière elle différents éléments de son quotidien : documents, conversations, objets personnels, écrans ouverts, carnets...</p>
+          <p>Explorez leur bureau afin de comprendre par vous-même :</p>
+          <ul class="goals-list">
+            <li>Leurs missions au quotidien</li>
+            <li>Leur façon de travailler</li>
+            <li>Leurs qualités principales</li>
+            <li>Leurs contraintes & défis</li>
+            <li>Leur environnement de travail</li>
+          </ul>
+        </div>
+
+        <div style="text-align: center;">
+          <button class="btn btn-primary" style="font-size: 1.1rem; padding: 0.8rem 2rem;" onclick="showScreen('screen-selection')">
+            🔍 Commencer l'exploration
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- SCREEN 2: POLE SELECTION -->
+    <section id="screen-selection" class="screen">
+      <div class="selection-header">
+        <h2 class="selection-title">Choisissez un Pôle à Explorer</h2>
+        <p class="selection-desc">Sélectionnez un bureau. Observez le décor et cliquez sur les objets pour mener votre enquête.</p>
+      </div>
+
+      <div class="cards-grid">
+        
+        <!-- CARD 1 -->
+        <div class="desk-card">
+          <div class="desk-card-img bg-dev">
+            <span class="desk-card-badge">Pôle 1</span>
+            <svg class="card-svg-icon" viewBox="0 0 24 24" fill="#38bdf8">
+              <path d="M14.6,16.6L19.2,12L14.6,7.4L16,6L22,12L16,18L14.6,16.6M9.4,16.6L4.8,12L9.4,7.4L8,6L2,12L8,18L9.4,16.6Z"/>
+            </svg>
+          </div>
+          <div class="desk-card-body">
+            <h3 class="desk-card-title">Développement & No-Code</h3>
+            <p class="desk-card-desc">L'équipe prépare la démonstration d'un outil de réservation pour une médiathèque. Un dysfonctionnement imprévu s'est glissé dans le code...</p>
+            <div class="desk-card-footer">
+              <span class="progress-text" id="prog-eq1">0 / 16 indices vus</span>
+              <button class="btn btn-primary" onclick="startInvestigation('enquete1')">Explorer</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- CARD 2 -->
+        <div class="desk-card">
+          <div class="desk-card-img bg-sec">
+            <span class="desk-card-badge">Pôle 2</span>
+            <svg class="card-svg-icon" viewBox="0 0 24 24" fill="#34d399">
+              <path d="M12,1L3,5V11C3,16.55 6.84,21.74 12,23C17.16,21.74 21,16.55 21,11V5L12,1M12,7A3,3 0 0,1 15,10A3,3 0 0,1 12,13A3,3 0 0,1 9,10A3,3 0 0,1 12,7Z"/>
+            </svg>
+          </div>
+          <div class="desk-card-body">
+            <h3 class="desk-card-title">Réseaux, IA & Cybersécurité</h3>
+            <p class="desk-card-desc">Des blocages d'accès et un e-mail suspect perturbent l'entreprise. L'équipe est en intervention urgente dans les services.</p>
+            <div class="desk-card-footer">
+              <span class="progress-text" id="prog-eq2">0 / 15 indices vus</span>
+              <button class="btn btn-primary" onclick="startInvestigation('enquete2')">Explorer</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- CARD 3 -->
+        <div class="desk-card">
+          <div class="desk-card-img bg-crea">
+            <span class="desk-card-badge">Pôle 3</span>
+            <svg class="card-svg-icon" viewBox="0 0 24 24" fill="#c084fc">
+              <path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4Z"/>
+            </svg>
+          </div>
+          <div class="desk-card-body">
+            <h3 class="desk-card-title">Création Visuelle</h3>
+            <p class="desk-card-desc">Dernière ligne droite avant le lancement d'un festival culturel ! Le client vient d'envoyer ses ultimes demandes d'ajustements graphiques.</p>
+            <div class="desk-card-footer">
+              <span class="progress-text" id="prog-eq3">0 / 15 indices vus</span>
+              <button class="btn btn-primary" onclick="startInvestigation('enquete3')">Explorer</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- CARD 4 -->
+        <div class="desk-card">
+          <div class="desk-card-img bg-med">
+            <span class="desk-card-badge">Pôle 4</span>
+            <svg class="card-svg-icon" viewBox="0 0 24 24" fill="#fb923c">
+              <path d="M16,11C17.66,11 18.99,9.66 18.99,8C18.99,6.34 17.66,5 16,5C14.34,5 13,6.34 13,8C13,9.66 14.34,11 16,11M8,11C9.66,11 10.99,9.66 10.99,8C10.99,6.34 9.66,5 8,5C6.34,5 5,6.34 5,8C5,9.66 6.34,11 8,11M8,13C5.67,13 1,14.17 1,16.5V19H15V16.5C15,14.17 10.33,13 8,13Z"/>
+            </svg>
+          </div>
+          <div class="desk-card-body">
+            <h3 class="desk-card-title">Médiation Numérique</h3>
+            <p class="desk-card-desc">Un atelier d'initiation au numérique pour débutants démarre demain. Les médiateurs mettent les dernières touches à la salle de formation.</p>
+            <div class="desk-card-footer">
+              <span class="progress-text" id="prog-eq4">0 / 15 indices vus</span>
+              <button class="btn btn-primary" onclick="startInvestigation('enquete4')">Explorer</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SCREEN 3: INVESTIGATION (2D OFFICE EXPLORER) -->
+    <section id="screen-investigation" class="screen">
+      <div class="investigation-bar">
+        <div class="investigation-info">
+          <h2 id="inv-title">Pôle Numérique</h2>
+          <p id="inv-context">Contexte de la journée...</p>
+        </div>
+        <div class="investigation-stats">
+          <span class="counter-badge" id="inv-counter">Indices découverts : 0 / 0</span>
+          <button class="btn btn-success" onclick="openSynthesis()">✍️ Rédiger mon analyse</button>
+        </div>
+      </div>
+
+      <!-- Interactive 2D Office Viewport -->
+      <div class="office-viewport" id="office-viewport">
+        <!-- Background SVG will be dynamically injected -->
+        <svg class="office-svg-bg" viewBox="0 0 1000 562.5" preserveAspectRatio="xMidYMid slice" id="office-svg">
+          <!-- Default room background decoration -->
+          <rect width="1000" height="562.5" fill="#c9ced6"/>
+          <rect y="380" width="1000" height="182.5" fill="#0f172a"/> <!-- Floor -->
+          <line x1="0" y1="380" x2="1000" y2="380" stroke="#334155" stroke-width="4"/>
+          <!-- Big Desk -->
+          <rect x="150" y="320" width="700" height="140" fill="#334155" rx="8"/>
+          <rect x="170" y="460" width="20" height="80" fill="#1e293b"/>
+          <rect x="810" y="460" width="20" height="80" fill="#1e293b"/>
+        </svg>
+
+        <!-- Interactive Clue Overlay Elements will be placed here -->
+        <div id="interactive-overlay"></div>
+      </div>
+    </section>
+
+    <!-- SCREEN 4: SYNTHESIS / ANALYSIS -->
+    <section id="screen-synthesis" class="screen">
+      <div class="synthesis-card">
+        <h2 class="synthesis-title">Votre Analyse du Pôle</h2>
+        <p class="synthesis-subtitle" id="synthesis-pole-name">Pôle : ...</p>
+
+        <p style="color: #cbd5e1; margin-bottom: 1.5rem; font-size: 0.95rem;">
+          À partir des indices et objets que vous avez observés dans le bureau, complétez votre fiche de synthèse.
+        </p>
+
+        <div class="form-group">
+          <label class="form-label">1. Que fait cette équipe ? Quels semblent être leurs objectifs ou le but de leur travail ? (Objectif)</label>
+          <textarea class="form-control" id="syn-goal" placeholder="Ex : Créer et faire fonctionner des agents IA."></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">2. Dans quelles conditions cette équipe travaille-t-elle ? (Conditions de travail)</label>
+          <textarea class="form-control" id="syn-conditions" placeholder="Ex : Fort travail en équipe, en lien avec les clients, à l'extérieur..."></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">3. Quelles qualités semblent avoir les membres de l'équipe ? </label>
+          <textarea class="form-control" id="syn-qualities" placeholder="Ex : Rigueur, patience, sens de l'écoute, persévérance..."></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">4. Que font les membres de cette équipe durant leur journée ?</label>
+          <textarea class="form-control" id="syn-missions" placeholder="Ex : Configurer un ordinateur, recueillir les besoins du client..."></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">5. Quelles outils utilisent les membres de cette équipe ?</label>
+          <textarea class="form-control" id="syn-tools" placeholder="Ex : Des imprimantes, des espaces de stockage en ligne..."></textarea>
+        </div>
+
+        <div class="synthesis-actions">
+          <button class="btn btn-secondary" onclick="showScreen('screen-investigation')">↩️ Reprendre l'exploration</button>
+          <button class="btn btn-primary" onclick="finishSynthesis()">✅ Valider mon bilan</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- SCREEN 5: FINAL REPORT / LIVRABLE -->
+    <section id="screen-summary" class="screen">
+      <div class="synthesis-card">
+        <div style="text-align: center; margin-bottom: 1.5rem;">
+          <span style="font-size: 2.5rem;">🎓</span>
+          <h2 class="synthesis-title">Fiche de Synthèse Validée</h2>
+          <p class="synthesis-subtitle" id="summary-pole-name">Pôle : ...</p>
+        </div>
+
+        <!-- Zone de récapitulatif dynamique -->
+        <div style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; padding: 1.5rem; margin-bottom: 2rem;">
+          
+          <div style="margin-bottom: 1.2rem;">
+            <h4 style="color: #38bdf8; font-size: 0.95rem; margin-bottom: 0.3rem;">🎯 Missions et objectifs de cette équipe</h4>
+            <p id="sum-goal" style="color: #f8fafc; font-size: 0.95rem; white-space: pre-line; margin: 0;"></p>
+          </div>
+
+          <div style="margin-bottom: 1.2rem;">
+            <h4 style="color: #38bdf8; font-size: 0.95rem; margin-bottom: 0.3rem;">📏 Organisation & Méthodes de travail</h4>
+            <p id="sum-conditions" style="color: #f8fafc; font-size: 0.95rem; white-space: pre-line; margin: 0;"></p>
+          </div>
+
+          <div style="margin-bottom: 1.2rem;">
+            <h4 style="color: #38bdf8; font-size: 0.95rem; margin-bottom: 0.3rem;">☺️ Qualités clés</h4>
+            <p id="sum-qualities" style="color: #f8fafc; font-size: 0.95rem; white-space: pre-line; margin: 0;"></p>
+          </div>
+
+          <div style ="margin-bottom: 1.2rem">
+            <h4 style="color: #38bdf8; font-size: 0.95rem; margin-bottom: 0.3rem;">✔️ Activités et tâches</h4>
+            <p id="sum-missions" style="color: #f8fafc; font-size: 0.95rem; white-space: pre-line; margin: 0;"></p>
+          </div>
+
+          <div>
+            <h4 style="color: #38bdf8; font-size: 0.95rem; margin-bottom: 0.3rem;">⚙️ Outils utilisés</h4>
+            <p id="sum-tools" style="color: #f8fafc; font-size: 0.95rem; white-space: pre-line; margin: 0;"></p>
+          </div>
+
+        </div>
+
+        <!-- Actions -->
+        <div class="synthesis-actions">
+          <button class="btn btn-secondary" onclick="editSynthesis()">✏️ Modifier ma synthèse</button>
+          <button class="btn btn-primary" onclick="showScreen('screen-selection')">📋 Choisir un autre pôle</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- MODAL CONTAINER FOR CLUES -->
+  <div class="modal-overlay" id="clue-modal">
+    <div class="modal-window">
+      <div class="modal-header">
+        <div class="modal-title-group">
+          <svg class="modal-title-icon" viewBox="0 0 24 24">
+            <path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4Z"/>
+          </svg>
+          <span class="modal-title" id="modal-title-text">Indice</span>
+        </div>
+        <button class="modal-close" onclick="closeModal()">&times;</button>
+      </div>
+      <div class="modal-body" id="modal-body-content">
+        <!-- Content dynamic injection -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       DATA STRUCTURES & JAVASCRIPT LOGIC
+       ========================================================================== -->
+  <script>
+    /* ==========================================================================
+       DATA: ENQUÊTE 1 - DÉVELOPPEMENT & NO-CODE
+       ========================================================================== */
+    const enquete1 = {
+      id: "enquete1",
+      titre: "Développement & No-Code",
+      ambiance: "Un open-space lumineux et moderne, occupé par une petite équipe de développement. Écrans allumés, tableau blanc rempli de tâches et tasses de café fumantes.",
+      contexte: "15 h 10. Demain matin, l'équipe présente un nouvel outil de réservation pour la médiathèque. Un bug survient lors de la modification des demandes de réservation...",
+      indices: [
+        {
+          id: "e1_carnet",
+          nom: "Un carnet de notes ouvert sur une todo-list",
+          support: "Carnet à spirales",
+          type: "notebook",
+          position: { x: 15, y: 62, w: 10, h: 10 },
+          icon: "📓",
+          contenu: `
+            <div class="notebook-paper">
+              <div class="notebook-title">A faire avant présentation client</div>
+              <div>☑ Vérifier formulaire inscriptions</div>
+              <div>☑ Tester process annulations</div>
+              <div>⬜ <strong>Tester modifications de rendez-vous</strong></div>
+              <div>☑ Tester sur téléphone</div>
+              <div>☑ Faire refaire les essais par quelqu'un d'autre</div>
+              <br>
+              <div style="color: #dc2626; font-weight: bold;">⚠️ Attention responsive sur téléphone à revoir</div>
+            </div>
+          `
+        },
+        {
+          id: "e1_teams",
+          nom: "Une conversation Teams restée ouverte",
+          support: "Écran d'ordinateur",
+          type: "teams",
+          position: { x: 25, y: 55, w: 10, h: 10 },
+          icon: "💻",
+          contenu: `
+            <div class="teams-client">
+              <div class="teams-header">💬 Chat d'équipe - Projet Médiathèque</div>
+              <div class="teams-messages">
+                <div class="teams-msg">
+                  <div class="teams-msg-author">Yanis</div>
+                  <div class="teams-msg-text">J'ai trouvé quelque chose.</div>
+                </div>
+                <div class="teams-msg" style="align-self: flex-end; background: #e1dfdd;">
+                  <div class="teams-msg-author" style="color:#2b2b2b;">Axel</div>
+                  <div class="teams-msg-text">Dis-moi...</div>
+                </div>
+                <div class="teams-msg">
+                  <div class="teams-msg-author">Yanis</div>
+                  <div class="teams-msg-text">Quand on modifie une réservation déjà enregistrée... Ça disparaît parfois.</div>
+                </div>
+                <div class="teams-msg" style="align-self: flex-end; background: #e1dfdd;">
+                  <div class="teams-msg-author" style="color:#2b2b2b;">Axel</div>
+                  <div class="teams-msg-text">À chaque fois ?</div>
+                </div>
+                <div class="teams-msg">
+                  <div class="teams-msg-author">Yanis</div>
+                  <div class="teams-msg-text">Non. Environ une fois sur dix.</div>
+                </div>
+                <div class="teams-msg" style="align-self: flex-end; background: #e1dfdd;">
+                  <div class="teams-msg-author" style="color:#2b2b2b;">Axel</div>
+                  <div class="teams-msg-text">Okay... je regarde.</div>
+                </div>
+              </div>
+            </div>
+          `
+        },
+        {
+          id: "e1_tableau",
+          nom: "Tâches organisées sur un tableau blanc",
+          support: "Tableau Kanban",
+          type: "whiteboard",
+          position: { x: 68, y: 10, w: 10, h: 10 },
+          icon: "📋",
+          contenu: `
+            <div class="whiteboard-view">
+              <div class="postit">
+                📌 <em>Si tu déplaces une tâche, pense à prévenir toute l'équipe 🙂</em>
+              </div>
+              <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.5rem; font-size: 0.85rem; text-align: center;">
+                <div style="background: #f1f5f9; padding: 0.5rem; border-radius: 4px;">
+                  <strong>À FAIRE</strong>
+                  <div style="background: #ffffff; margin-top: 0.5rem; padding: 0.4rem; border: 1px solid #cbd5e1; border-radius: 4px;">Corriger bug réservations</div>
+                </div>
+                <div style="background: #f1f5f9; padding: 0.5rem; border-radius: 4px;">
+                  <strong>EN COURS</strong>
+                  <div style="background: #ffffff; margin-top: 0.5rem; padding: 0.4rem; border: 1px solid #cbd5e1; border-radius: 4px;">Préparer la démonstration</div>
+                  <div style="background: #ffffff; margin-top: 0.4rem; padding: 0.4rem; border: 1px solid #cbd5e1; border-radius: 4px;">Tester sur téléphone</div>
+                </div>
+                <div style="background: #f1f5f9; padding: 0.5rem; border-radius: 4px;">
+                  <strong>TERMINÉ</strong>
+                  <div style="background: #ffffff; margin-top: 0.5rem; padding: 0.4rem; border: 1px solid #cbd5e1; border-radius: 4px;">Vérifier le process d'inscription</div>
+                  <div style="background: #ffffff; margin-top: 0.4rem; padding: 0.4rem; border: 1px solid #cbd5e1; border-radius: 4px;">Réunion client (ven 18/08)</div>
+                </div>
+              </div>
+            </div>
+          `
+        },
+        {
+          id: "e1_outlook",
+          nom: "E-mail d'un client",
+          support: "Messagerie Outlook",
+          type: "email",
+          position: { x: 40, y: 56, w: 10, h: 10 },
+          icon: "✉️",
+          contenu: `
+            <div class="email-client">
+              <div class="email-header">📧 Outlook - Boîte de réception</div>
+              <div class="email-meta">
+                <div><span>De :</span> Claire &lt;c.bernard@mediatheque-ville.fr&gt;</div>
+                <div><span>Objet :</span> Démonstration nouveau site Web</div>
+                <div><span>Date :</span> Aujourd'hui 14:22</div>
+              </div>
+              <div class="email-content">Bonjour,
+
+Je vous confirme notre disponibilité pour la démonstration de demain. Nous avons hâte de découvrir la nouvelle version du site.
+
+À demain !
+
+Claire
+Médiathèque municipale</div>
+            </div>
+          `
+        },
+        {
+          id: "e1_cafe",
+          nom: "Conversation entre collègues",
+          support: "A la Machine à café",
+          type: "chat",
+          position: { x: 88, y: 22, w: 10, h: 10 },
+          icon: "☕",
+          contenu: `
+            <div class="generic-object-view" style="background: #fff7ed; border: 1px solid #ffedd5;">
+              <h4 style="color: #c2410c; margin-bottom: 0.5rem;">🗣️ Conversation entendue près de la machine à café</h4>
+              <p style="margin-bottom: 0.5rem;"><strong>Axel :</strong> Tu sais ce qui est frustrant ? J’ai cherché à régler le même problème pendant plus de deux heures.</p>
+              <p><strong>Khadidja :</strong> Et finalement, c’était une virgule mal placée qui a fait planter tout ton code ?</p>
+              <p style="margin-top: 0.5rem;"><strong>Axel :</strong> Presque. Une majuscule que j’avais oubliée…</p>
+            </div>
+          `
+        },
+        {
+          id: "e1_sms",
+          nom: "Conversation SMS",
+          support: "Téléphone portable",
+          type: "sms",
+          position: { x: 33, y: 72, w: 10, h: 10 },
+          icon: "📱",
+          contenu: `
+            <div class="phone-mockup">
+              <div class="phone-screen">
+                <div style="text-align: center; font-size: 0.8rem; color: #8e8e93; margin-bottom: 0.75rem;">Chloé</div>
+                <div class="sms-bubble">Le client demande si on montrera bien la version finale demain.</div>
+                <div class="sms-bubble sent">Oui. Enfin... sauf si Yanis trouve encore quelque chose 😅</div>
+                <div class="sms-bubble">Je préfère qu'on découvre les problèmes aujourd'hui que demain devant tout le monde.</div>
+                <div class="sms-bubble sent">😭👍</div>
+              </div>
+            </div>
+          `
+        },
+        {
+          id: "e1_demo",
+          nom: "Site ouvert sur un navigateur Web",
+          support: "Écran de Démonstration",
+          type: "browser",
+          position: { x: 23, y: 65, w: 10, h: 10 },
+          icon: "🖥️",
+          contenu: `
+            <div class="generic-object-view" style="border: 2px solid #0284c7;">
+              <div style="background: #e2e8f0; padding: 0.4rem; border-radius: 4px; margin-bottom: 1rem; font-size: 0.85rem; color: #475569;">
+                🌐 https://mediatheque-reservation-demo.local
+              </div>
+              <h3 style="color: #0369a1; text-align: center; margin-top: 1rem;">Bienvenue sur votre espace de réservation</h3>
+              <p style="text-align: center; color: #64748b; margin-top: 0.5rem;">Médiathèque Municipale</p>
+              <br>
+              <div class="postit" style="transform: rotate(1deg); margin-top: 1rem;">
+                📌 <em>Hésitation utilisateur sur les étapes de demande de RDV -&gt; étapes à revoir</em>
+              </div>
+            </div>
+          `
+        },
+        {
+          id: "e1_code",
+          nom: "Editeur de code",
+          support: "Un écran et des lignes de code",
+          type: "code",
+          position: { x: 44, y: 60, w: 10, h: 10 },
+          icon: "💻",
+          contenu: `
+            <div class="code-editor">
+              <div><span class="code-comment">// Correction du module de réservation</span></div>
+              <div><span class="code-keyword">function</span> <span class="code-function">updateAppointment</span>(id, newDate) {</div>
+              <div>&nbsp;&nbsp;<span class="code-keyword">let</span> booking = <span class="code-function">findBooking</span>(id);</div>
+              <div>&nbsp;&nbsp;<span class="code-keyword">if</span> (!booking) <span class="code-keyword">return</span> <span class="code-keyword">null</span>;</div>
+              <div>&nbsp;&nbsp;<span class="code-comment">// Bug potentiel : majuscule dans le nom de la propriété</span></div>
+              <div>&nbsp;&nbsp;booking.Status = <span class="code-string">"Updated"</span>;</div>
+              <div>&nbsp;&nbsp;<span class="code-keyword">return</span> booking.<span class="code-function">save</span>();</div>
+              <div>}</div>
+            </div>
+          `
+        },
+        {
+          id: "e1_mug",
+          nom: "Tasse à café",
+          support: "Message",
+          type: "object",
+          position: { x: 49, y: 64, w: 10, h: 10 },
+          icon: "☕",
+          contenu: `
+            <div class="generic-object-view" style="text-align: center;">
+              <div style="font-size: 3rem; margin-bottom: 0.5rem;">☕</div>
+              <h3>Mug en céramique</h3>
+              <p style="font-style: italic; color: #0284c7; font-size: 1.1rem; margin-top: 0.5rem;">« Je transforme le café en lignes de code »</p>
+            </div>
+          `
+        },
+        {
+          id: "e1_photo",
+          nom: "Photo encadrée",
+          support: "Cadre photo",
+          type: "photo",
+          position: { x: 44, y: 35, w: 10, h: 10 },
+          icon: "🖼️",
+          contenu: `
+            <div class="generic-object-view" style="text-align: center;">
+              <div style="background: #f1f5f9; padding: 2rem; border-radius: 8px; border: 2px solid #cbd5e1; margin-bottom: 1rem;">
+                👥 👥 👥 👥
+                <p style="margin-top: 0.5rem; font-weight: bold; color: #475569;">Quatre collègues souriants devant un tableau rempli de post-it.</p>
+              </div>
+              <p style="font-family: handwriting, cursive, sans-serif; color: #334155;"><em>Annotation au dos : "Juin 2022, premier projet terminé ensemble !"</em></p>
+            </div>
+          `
+        },
+        {
+          id: "e1_sticker",
+          nom: "Stickers",
+          support: "Citation",
+          type: "sticker",
+          position: { x: 30, y: 53, w: 10, h: 10 },
+          icon: "🏷️",
+          contenu: `
+            <div class="generic-object-view" style="background: #0f172a; color: #f8fafc; border-radius: 8px; text-align: center;">
+              <p style="font-size: 0.95rem; line-height: 1.6;">
+                « La théorie, c'est quand on sait tout et que rien ne marche.<br>
+                La pratique, c'est quand tout fonctionne et que personne ne sait pourquoi.<br>
+                Ici, nous avons combiné la théorie et la pratique :<br>
+                <strong>Rien ne marche… et personne ne sait pourquoi !</strong> »
+              </p>
+            </div>
+          `
+        },
+        {
+          id: "e1_plante",
+          nom: "Une plante verte",
+          support: "Décoration",
+          type: "decor",
+          position: { x: 88, y: 62, w: 10, h: 10 },
+          icon: "🪴",
+          contenu: `
+            <div class="generic-object-view">
+              <h3>🪴 Plante verte d'intérieur</h3>
+              <p style="margin-top: 0.5rem; color: #475569;">Une grande plante en pot. Quelques feuilles tombent légèrement, mais elle semble globalement très bien entretenue par l'équipe.</p>
+            </div>
+          `
+        },
+        {
+          id: "e1_chaise",
+          nom: "Chaise de bureau",
+          support: "Mobilier",
+          type: "decor",
+          position: { x: 5, y: 72, w: 10, h: 10 },
+          icon: "🪑",
+          contenu: `
+            <div class="generic-object-view">
+              <h3>🪑 Chaise ergonomique</h3>
+              <p style="margin-top: 0.5rem; color: #475569;">Une veste est posée sur le dossier. Visiblement, son propriétaire s'est absenté un court instant et revient bientôt.</p>
+            </div>
+          `
+        },
+        {
+          id: "e1_fenetre",
+          nom: "Fenêtre donnant sur le parking",
+          support: "Baie vitrée",
+          type: "decor",
+          position: { x: 5, y: 5, w: 10, h: 10 },
+          icon: "🪟",
+          contenu: `
+            <div class="generic-object-view">
+              <h3>🪟 Vue sur l'extérieur</h3>
+              <p style="margin-top: 0.5rem; color: #475569;">Grande baie vitrée donnant sur le parking de l'entreprise. On aperçoit quelques collègues qui traversent le parking en discutant.</p>
+            </div>
+          `
+        },
+        {
+          id: "e1_biblio",
+          nom: "Étagère & Livres",
+          support: "Mobilier",
+          type: "decor",
+          position: { x: 82, y: 35, w: 10, h: 10 },
+          icon: "📚",
+          contenu: `
+            <div class="generic-object-view">
+              <h3>📚 Petite étagère</h3>
+              <p style="margin-top: 0.5rem; color: #475569;">Contient quelques livres de programmation JavaScript, des classeurs de documentation technique sur les bases de données et de petites figurines. Rien de particulier à signaler.</p>
+            </div>
+          `
+        }
+      ]
+    };
+
+    /* ==========================================================================
+       DATA: ENQUÊTE 2 - RÉSEAUX, IA & CYBERSÉCURITÉ
+       ========================================================================== */
+    const enquete2 = {
+      id: "enquete2",
+      titre: "Réseaux, IA & Cybersécurité",
+      ambiance: "Bureau sobre et fonctionnel, rempli d'écrans de contrôle, matériel réseau soigneusement rangé, téléphones d'urgence et tickets d'incidents.",
+      contexte: "9 h 25. Plusieurs salariés ne peuvent plus accéder à leurs outils. Un mail de phishing circule. L'équipe est partie intervenir en urgence.",
+      indices: [
+        {
+          id: "e2_tableau",
+          nom: "Planning des interventions",
+          support: "Tableau magnétique",
+          type: "whiteboard",
+          position: { x: 70, y: 12, w: 20, h: 20},
+          icon: "📋",
+          contenu: `
+            <div class="whiteboard-view">
+              <h3 style="color: #0f172a; border-bottom: 2px solid #059669; padding-bottom: 0.3rem;">Interventions du jour</h3>
+              <br>
+              <div style="line-height: 1.8; font-size: 0.95rem;">
+                <div>☑ Accueil</div>
+                <div>☑ Comptabilité</div>
+                <div>☑ Ressources humaines</div>
+                <div>☑ Salle de réunion</div>
+                <div>⬜ <strong>Atelier logistique</strong></div>
+              </div>
+              <br>
+              <div class="postit">
+                📌 <em>Prévenir les utilisateurs avant toute intervention !</em>
+              </div>
+            </div>
+          `
+        },
+        {
+          id: "e2_outlook",
+          nom: "Email suspect",
+          support: "Boîte mail Outlook",
+          type: "email",
+          position: { x: 38, y: 55, w: 5, h: 10 },
+          icon: "✉️",
+          contenu: `
+            <div class="email-client">
+              <div class="email-header" style="background: #dc2626;">⚠️ Outlook - E-mail Suspect SignaIé</div>
+              <div class="email-meta">
+                <div><span>De :</span> Support-Securite &lt;admin-update-login@check-verify-mail.com&gt;</div>
+                <div><span>Objet :</span> 🚨 Votre compte sera supprimé aujourd'hui</div>
+              </div>
+              <div class="email-content">Bonjour,
+
+Votre accès arrive à expiration.
+Merci de confirmer votre mot de passe avant 12 h en cliquant sur le lien ci-dessous.
+
+Merci.</div>
+            </div>
+            <div class="postit" style="margin-top: 0.5rem; background: #fef08a;">
+              📌 <strong>URGENT :</strong> Faire la liste de toutes les personnes ayant cliqué sur le lien !
+            </div>
+          `
+        },
+        {
+          id: "e2_teams",
+          nom: "Ecran d'ordinateur",
+          support: "Conversation Teams",
+          type: "teams",
+          position: { x: 55, y: 50, w: 10, h: 10 },
+          icon: "💬",
+          contenu: `
+            <div class="teams-client">
+              <div class="teams-header">💬 Chat Incident - Sarah & Camille</div>
+              <div class="teams-messages">
+                <div class="teams-msg">
+                  <div class="teams-msg-author">Camille</div>
+                  <div class="teams-msg-text">Bonjour, plusieurs collègues m’ont fait remonter un problème de connexion à leur boîte mail. Ils n’y ont plus accès depuis ce matin.</div>
+                </div>
+                <div class="teams-msg" style="align-self: flex-end; background: #e1dfdd;">
+                  <div class="teams-msg-author" style="color:#2b2b2b;">Sarah</div>
+                  <div class="teams-msg-text">Vous savez s’ils étaient connectés en arrivant ce matin ?</div>
+                </div>
+                <div class="teams-msg">
+                  <div class="teams-msg-author">Camille</div>
+                  <div class="teams-msg-text">Apparemment, oui. Mais ils disent qu’ils ont été déconnectés et leurs identifiants ne fonctionnent plus.</div>
+                </div>
+                <div class="teams-msg" style="align-self: flex-end; background: #e1dfdd;">
+                  <div class="teams-msg-author" style="color:#2b2b2b;">Sarah</div>
+                  <div class="teams-msg-text">D'accord. Je vais vérifier en urgence.</div>
+                </div>
+              </div>
+            </div>
+          `
+        },
+        {
+          id: "e2_carnet",
+          nom: "Une procédure d'appelle y est notée",
+          support: "Guide méthodologique",
+          type: "notebook",
+          position: { x: 15, y: 62, w: 10, h: 10 },
+          icon: "📓",
+          contenu: `
+            <div class="notebook-paper">
+              <div class="notebook-title">Procédure Réception Appel Support</div>
+              <ol style="margin-left: 1.2rem;">
+                <li>Écouter. Laisser parler !</li>
+                <li>Poser quelques questions.</li>
+                <li>Reproduire le problème.</li>
+                <li>Éliminer les causes au fur et à mesure.</li>
+                <li>Chercher une solution.</li>
+                <li>Vérifier que tout fonctionne.</li>
+              </ol>
+              <br>
+              <div style="font-weight: bold; color: #0284c7;">👉 Toujours expliquer ce qu'on fait !</div>
+              <div style="font-weight: bold; color: #059669;">👉 Penser à clôturer le ticket à la fin de l’intervention !</div>
+            </div>
+          `
+        },
+        {
+          id: "e2_cafe",
+          nom: "Discussion entre collègues",
+          support: "A la machine à café",
+          type: "chat",
+          position: { x: 85, y: 25, w: 10, h: 10 },
+          icon: "☕",
+          contenu: `
+            <div class="generic-object-view" style="background: #f0fdf4; border: 1px solid #bbf7d0;">
+              <h4 style="color: #166534; margin-bottom: 0.5rem;">🗣️ Conversation entre Julien et Mehdi</h4>
+              <p style="margin-bottom: 0.5rem;"><strong>Julien :</strong> Finalement ce n'était pas une grosse menace ?</p>
+              <p><strong>Mehdi :</strong> Ce n’était pas une menace du tout, juste un problème de souris.</p>
+              <p style="margin-top: 0.5rem;"><strong>Julien :</strong> Ah oui ? En lisant les infos sur le ticket, on aurait juré que c’était un piratage !</p>
+              <p><strong>Mehdi :</strong> Haha, oui, j’ai vu ça. Je crois qu’il a un peu paniqué !</p>
+            </div>
+          `
+        },
+        {
+          id: "e2_sms",
+          nom: "Conversation SMS",
+          support: "Smartphone dévérouillé",
+          type: "sms",
+          position: { x: 33, y: 60, w: 4, h: 10 },
+          icon: "📱",
+          contenu: `
+            <div class="phone-mockup">
+              <div class="phone-screen">
+                <div style="text-align: center; font-size: 0.8rem; color: #8e8e93; margin-bottom: 0.75rem;">Victor H. COGIP / Sécu</div>
+                <div class="sms-bubble">Bonjour. Je crois que j'ai ouvert un mail bizarre... J'espère que je n'ai rien cassé.</div>
+                <div class="sms-bubble sent">Pas d'inquiétude. Ne saisissez aucune information, ne transférez pas le mail à vos collègues. On arrive dans quelques minutes.</div>
+              </div>
+            </div>
+          `
+        },
+        {
+          id: "e2_ticket",
+          nom: "Logiciel de Gestion de Tickets",
+          support: "Ticket Support d'incident",
+          type: "ticket",
+          position: { x: 50, y: 55, w: 10, h: 10 },
+          icon: "🖥️",
+          contenu: `
+            <div class="ticket-system">
+              <div class="ticket-header">
+                <span class="ticket-id">TICKET N° A-150726-L9-023</span>
+                <span style="background: #fef08a; padding: 0.2rem 0.5rem; border-radius: 4px; font-size: 0.8rem; font-weight: bold;">EN COURS</span>
+              </div>
+              <div style="font-size: 0.9rem; line-height: 1.6;">
+                <div><strong>Utilisateur :</strong> MARSAULT Catherine</div>
+                <div><strong>Téléphone :</strong> 03 82 01 02 03</div>
+                <div><strong>Date :</strong> 15/07/2026</div>
+                <br>
+                <div style="background: #f8fafc; padding: 0.75rem; border: 1px solid #e2e8f0; border-radius: 4px;">
+                  <strong>Description :</strong> Impossible de me connecter à Teams depuis Google. Une page blanche s’affiche et ça charge dans le vide.
+                </div>
+              </div>
+            </div>
+          `
+        },
+        {
+          id: "e2_planning",
+          nom: "Planning Hebdomadaire",
+          support: "Panneau d'affichage",
+          type: "planning",
+          position: { x: 44, y: 25, w: 10, h: 10 },
+          icon: "📅",
+          contenu: `
+            <div class="generic-object-view">
+              <h3 style="color: #0369a1; border-bottom: 1px solid #e2e8f0; padding-bottom: 0.5rem; margin-bottom: 0.75rem;">📅 Planning d'interventions de la semaine</h3>
+              <ul style="font-size: 0.88rem; line-height: 1.6; list-style: none;">
+                <li><strong>Lundi :</strong> Vidéoprojecteur & prise HDMI / Mise en service nouveaux postes</li>
+                <li><strong>Mardi :</strong> Copieur accueil / Assistance logiciel atelier</li>
+                <li><strong>Mercredi :</strong> Préparation ordinateurs (Christophe B., Valérie M., Travis W.)</li>
+                <li><strong>Jeudi :</strong> Maintenance réseaux et imprimantes</li>
+                <li><strong>Vendredi :</strong> Gestion hebdomadaire</li>
+              </ul>
+            </div>
+          `
+        },
+        {
+          id: "e2_mug",
+          nom: "Mug Support IT",
+          support: "Objet",
+          type: "object",
+          position: { x: 46, y: 65, w: 5, h: 10 },
+          icon: "☕",
+          contenu: `
+            <div class="generic-object-view" style="text-align: center;">
+              <div style="font-size: 3rem; margin-bottom: 0.5rem;">☕</div>
+              <h3>Mug Bleu Technicien</h3>
+              <p style="font-weight: bold; color: #0284c7; margin-top: 0.5rem;">« As-tu essayé de redémarrer ? »</p>
+            </div>
+          `
+        },
+        {
+          id: "e2_dessin",
+          nom: "Dessin d'enfant",
+          support: "Dessin aimanté",
+          type: "photo",
+          position: { x: 12, y: 42, w: 10, h: 10 },
+          icon: "🖼️",
+          contenu: `
+            <div class="generic-object-view" style="text-align: center;">
+              <div style="font-size: 2.5rem; margin-bottom: 0.5rem;">🦸‍♂️💻</div>
+              <p style="font-weight: bold;">Dessin d'un homme portant une cape de super-héros informatique.</p>
+              <p style="color: #e11d48; margin-top: 0.5rem; font-weight: bold;">« Merci de réparer les ordinateurs de tout le monde ❤️ »</p>
+            </div>
+          `
+        },
+        {
+          id: "e2_sticker",
+          nom: "Sticker Orange",
+          support: "Citation",
+          type: "sticker",
+          position: { x: 62, y: 60, w: 6, h: 8 },
+          icon: "🏷️",
+          contenu: `
+            <div class="generic-object-view" style="background: #ea580c; color: white; border-radius: 8px; text-align: center;">
+              <p style="font-weight: bold; font-size: 1rem;">
+                « 90% du temps, le problème se situe entre le clavier et la chaise. »
+              </p>
+            </div>
+          `
+        },
+        {
+          id: "e2_plante",
+          nom: "Petite Plante",
+          support: "Décor",
+          type: "decor",
+          position: { x: 88, y: 80, w: 8, h: 22 },
+          icon: "🪴",
+          contenu: `
+            <div class="generic-object-view">
+              <h3>🪴 Plante de bureau</h3>
+              <p style="margin-top: 0.5rem; color: #475569;">Elle semble avoir un peu soif. L'équipe a été tellement absorbée par les interventions réseau ce matin qu'ils ont oublié de l'arroser.</p>
+            </div>
+          `
+        },
+        {
+          id: "e2_armoire",
+          nom: "Armoire Réseau & Matériel",
+          support: "Matériel",
+          type: "decor",
+          position: { x: 87, y: 45, w: 10, h: 28 },
+          icon: "🗄️",
+          contenu: `
+            <div class="generic-object-view">
+              <h3>🗄️ Armoire métallique de stock</h3>
+              <p style="margin-top: 0.5rem; color: #475569;">Remplie de routeurs de secours, câbles Ethernet RJ45, casques, claviers et souris de rechange. Tout est parfaitement étiqueté et rangé.</p>
+            </div>
+          `
+        },
+        {
+          id: "e2_fenetre",
+          nom: "Fenêtre sur parking",
+          support: "Vue",
+          type: "decor",
+          position: { x: 3, y: 5, w: 15, h: 32 },
+          icon: "🪟",
+          contenu: `
+            <div class="generic-object-view">
+              <h3>🪟 Fenêtre</h3>
+              <p style="margin-top: 0.5rem; color: #475569;">On aperçoit deux techniciens transportant une unité centrale et un écran dans le couloir extérieur. Ils reviennent d'une intervention.</p>
+            </div>
+          `
+        },
+        {
+          id: "e2_casier",
+          nom: "Casier de Julien",
+          support: "Rangement",
+          type: "decor",
+          position: { x: 1, y: 50, w: 5, h: 24 },
+          icon: "🗄️",
+          contenu: `
+            <div class="generic-object-view">
+              <h3>🔒 Casier Personnel</h3>
+              <p style="margin-top: 0.5rem; color: #475569;">Une étiquette indique "Julien". Le casier est fermé à clé.</p>
+            </div>
+          `
+        }
+      ]
+    };
+
+    /* ==========================================================================
+       DATA: ENQUÊTE 3 - CRÉATION VISUELLE
+       ========================================================================== */
+    const enquete3 = {
+      id: "enquete3",
+      titre: "Création Visuelle",
+      ambiance: "Bureau créatif, murs couverts d'affiches, nuances de couleurs, nuanciers Pantone, tablettes graphiques et appareils photo.",
+      contexte: "16 h 40. L'équipe prépare la campagne de communication d'un festival culturel. Le client demande des modifications de dernière minute...",
+      indices: [
+        {
+          id: "e3_tableau",
+          nom: "Tableau en liège",
+          support: "Affiches épinglées",
+          type: "whiteboard",
+          position: { x: 55, y: 12, w: 25, h: 20 },
+          icon: "🖼️",
+          contenu: `
+            <div class="whiteboard-view" style="background: #fef3c7;">
+              <h3>🎨 Comparatif Affiches Festival</h3>
+              <br>
+              <div style="display: flex; gap: 0.5rem;">
+                <div class="postit"><strong>Version 1 :</strong> Couleurs très appréciées</div>
+                <div class="postit"><strong>Version 2 :</strong> Texte beaucoup plus lisible</div>
+                <div class="postit"><strong>Version 3 :</strong> Photo préférée de l'équipe</div>
+              </div>
+            </div>
+          `
+        },
+        {
+          id: "e3_teams",
+          nom: "Conversation Teams",
+          support: "Ecran d'ordinateur",
+          type: "teams",
+          position: { x: 55, y: 50, w: 10, h: 10 },
+          icon: "💬",
+          contenu: `
+            <div class="teams-client">
+              <div class="teams-header" style="background: #701a75;">💬 Chat Créa - Léo & Inès</div>
+              <div class="teams-messages">
+                <div class="teams-msg">
+                  <div class="teams-msg-author">Inès</div>
+                  <div class="teams-msg-text">Bonne nouvelle ! Le client adore la deuxième proposition.</div>
+                </div>
+                <div class="teams-msg" style="align-self: flex-end; background: #e1dfdd;">
+                  <div class="teams-msg-author" style="color:#2b2b2b;">Léo</div>
+                  <div class="teams-msg-text">Super 😄</div>
+                </div>
+                <div class="teams-msg">
+                  <div class="teams-msg-author">Inès</div>
+                  <div class="teams-msg-text">Par contre... Il préfère finalement les couleurs de la première.</div>
+                </div>
+                <div class="teams-msg" style="align-self: flex-end; background: #e1dfdd;">
+                  <div class="teams-msg-author" style="color:#2b2b2b;">Léo</div>
+                  <div class="teams-msg-text">Donc... on mélange les deux ? 🤣</div>
+                </div>
+              </div>
+            </div>
+          `
+        },
+        {
+          id: "e3_carnet",
+          nom: "Carnet de croquis",
+          support: "Dessins & Esquisses",
+          type: "notebook",
+          position: { x: 22, y: 62, w: 9, h: 12 },
+          icon: "✏️",
+          contenu: `
+            <div class="notebook-paper">
+              <div class="notebook-title">Esquisses Disposition Affiche</div>
+              <div>✏️ Croquis A : <em>"Trop chargé"</em></div>
+              <div>✏️ Croquis B : <em>"Plus lisible"</em></div>
+              <div>✏️ Croquis C : <em>"Essayer une autre disposition"</em></div>
+              <br>
+              <div style="font-weight: bold; color: #2563eb;">💡 Idée : Garder plus d'espace blanc / respiration autour du titre !</div>
+            </div>
+          `
+        },
+        {
+          id: "e3_outlook",
+          nom: "E-mail du client",
+          support: "Demandes de modifications",
+          type: "email",
+          position: { x: 38, y: 65, w: 10, h: 10 },
+          icon: "✉️",
+          contenu: `
+            <div class="email-client">
+              <div class="email-header" style="background: #a855f7;">📧 E-mail Client - Festival Culturel</div>
+              <div class="email-meta">
+                <div><span>Objet :</span> Derniers ajustements affiche</div>
+              </div>
+              <div class="email-content">Bonjour,
+
+L'affiche nous plaît beaucoup. Pourriez-vous :
+• Agrandir légèrement le titre ;
+• Choisir une photo où les familles sont davantage visibles ;
+• Faire ressortir la date du festival.
+
+Merci beaucoup !</div>
+            </div>
+          `
+        },
+        {
+          id: "e3_fichiers",
+          nom: "Gestionnaire de documents",
+          support: "Ecran d'ordinateur",
+          type: "browser",
+          position: { x: 50, y: 55, w: 10, h: 10 },
+          icon: "📁",
+          contenu: `
+            <div class="generic-object-view">
+              <h4>📂 Dossier : /Projets/Festival_2026/Affiches/Versions</h4>
+              <ul style="list-style: none; margin-top: 1rem; font-family: monospace; font-size: 0.9rem; line-height: 1.8;">
+                <li>📄 Affiche_v1.pdf</li>
+                <li>📄 Affiche_v2.pdf</li>
+                <li>📄 Affiche_v2_bis.pdf</li>
+                <li>📄 Affiche_v3.pdf</li>
+                <li>📄 Affiche_v3_finale.pdf</li>
+                <li>📄 Affiche_v3_finale2.pdf</li>
+                <li style="color: #059669; font-weight: bold;">📄 Affiche_v3_finale2_OK.pdf</li>
+              </ul>
+            </div>
+          `
+        },
+        {
+          id: "e3_cafe",
+          nom: "Discussion entre collègues",
+          support: "Conversation",
+          type: "chat",
+          position: { x: 82, y: 22, w: 10, h: 10 },
+          icon: "☕",
+          contenu: `
+            <div class="generic-object-view" style="background: #fdf4ff; border: 1px solid #f5d0fe;">
+              <h4 style="color: #86198f;">🗣️ Hugo & Léo discutent autour d'un café</h4>
+              <p><strong>Hugo :</strong> Tu préfères laquelle ?</p>
+              <p><strong>Léo :</strong> La troisième.</p>
+              <p><strong>Hugo :</strong> Moi aussi.</p>
+              <p><strong>Léo :</strong> Mais le client préfère la deuxième... C’est son projet.</p>
+              <p><strong>Hugo :</strong> Oui, mais c’est aussi à nous de lui dire ce qui va fonctionner ou non.</p>
+            </div>
+          `
+        },
+        {
+          id: "e3_postit",
+          nom: "Post-it",
+          support: "Todo list",
+          type: "sticker",
+          position: { x: 70, y: 60, w: 6, h: 8 },
+          icon: "📌",
+          contenu: `
+            <div class="postit" style="font-size: 1rem;">
+              <strong>Avant d'envoyer à l’impression :</strong><br>
+              ☑ Vérifier le mode de couleurs (CMJN)<br>
+              ☑ Vérifier les fonds perdus (3mm)<br>
+              ☑ Confirmer la version finale (BAT)
+            </div>
+          `
+        },
+        {
+          id: "e3_planning",
+          nom: "Planning d'étapes créatives",
+          support: "Frise projet",
+          type: "planning",
+          position: { x: 44, y: 25, w: 11, h: 16 },
+          icon: "📊",
+          contenu: `
+            <div class="generic-object-view">
+              <h3>📊 Frise des étapes du Projet Festival</h3>
+              <br>
+              <div style="line-height: 1.8; font-size: 0.9rem;">
+                <div>✔ Rencontre avec le client</div>
+                <div>✔ Premières idées &amp; Moodboard</div>
+                <div>✔ Croquis &amp; Maquettes</div>
+                <div>✔ Premières propositions</div>
+                <div>✔ Ajustements client</div>
+                <div style="color: #d97706; font-weight: bold;">⬜ Validation finale, bon à tirer (BAT)</div>
+                <div>⬜ Impression</div>
+                <div>⬜ Livraison</div>
+              </div>
+            </div>
+          `
+        },
+        {
+          id: "e3_mug",
+          nom: "Tasse de café",
+          support: "Objet",
+          type: "object",
+          position: { x: 48, y: 62, w: 5, h: 8 },
+          icon: "☕",
+          contenu: `
+            <div class="generic-object-view" style="text-align: center;">
+              <div style="font-size: 3rem; margin-bottom: 0.5rem;">🎨</div>
+              <h3>Mug Graphiste</h3>
+              <p style="font-style: italic; color: #a855f7; margin-top: 0.5rem;">« Je peux déplacer ce logo de deux pixels si ça peut aider. »</p>
+            </div>
+          `
+        },
+        {
+          id: "e3_photo",
+          nom: "Photo souvenir d'équipe",
+          support: "Cadre Photo",
+          type: "photo",
+          position: { x: 12, y: 42, w: 7, h: 12 },
+          icon: "🖼️",
+          contenu: `
+            <div class="generic-object-view" style="text-align: center;">
+              <div style="background: #fdf4ff; padding: 1.5rem; border-radius: 8px;">
+                🖼️ Toute l'équipe pose fièrement devant une grande affiche imprimée en haute définition.
+              </div>
+              <p style="margin-top: 0.5rem; font-style: italic; color: #701a75;">Au dos : "Après 17 versions... enfin validée !"</p>
+            </div>
+          `
+        },
+        {
+          id: "e3_sticker",
+          nom: "Sticker sur le carnet de croquis",
+          support: "Citation",
+          type: "sticker",
+          position: { x: 30, y: 64, w: 6, h: 10 },
+          icon: "🏷️",
+          contenu: `
+            <div class="generic-object-view" style="background: #18181b; color: white; border-radius: 8px; text-align: center;">
+              <p style="font-weight: bold; font-size: 1rem;">
+                « Le client est là pour nous parler de son problème, pas de ses idées. »
+              </p>
+            </div>
+          `
+        },
+        {
+          id: "e3_cactus",
+          nom: "Cactus en pot",
+          support: "Décor",
+          type: "decor",
+          position: { x: 88, y: 70, w: 8, h: 22 },
+          icon: "🌵",
+          contenu: `
+            <div class="generic-object-view">
+              <h3>🌵 Petit Cactus</h3>
+              <p style="margin-top: 0.5rem; color: #475569;">Un petit cactus très résistant posé à côté du moniteur. Il semble beaucoup plus facile à satisfaire que certains clients !</p>
+            </div>
+          `
+        },
+        {
+          id: "e3_biblio",
+          nom: "Bibliothèque Design",
+          support: "Livres",
+          type: "decor",
+          position: { x: 86, y: 40, w: 8, h: 35 },
+          icon: "📚",
+          contenu: `
+            <div class="generic-object-view">
+              <h3>📚 Ouvrages d'inspiration</h3>
+              <p style="margin-top: 0.5rem; color: #475569;">Livres de typographie, Histoire du design graphique, Théorie des couleurs et Recueils de photographies.</p>
+            </div>
+          `
+        },
+        {
+          id: "e3_fauteuil",
+          nom: "Fauteuil de détente",
+          support: "Mobilier",
+          type: "decor",
+          position: { x: 1, y: 60, w: 10, h: 10 },
+          icon: "🛋️",
+          contenu: `
+            <div class="generic-object-view">
+              <h3>🛋️ Fauteuil avec plaid</h3>
+              <p style="margin-top: 0.5rem; color: #475569;">L'endroit idéal pour faire une pause créative et prendre un peu de recul sur ses créations.</p>
+            </div>
+          `
+        },
+        {
+          id: "e3_fenetre",
+          nom: "Grande Baie Vitrée",
+          support: "Vue",
+          type: "decor",
+          position: { x: 3, y: 5, w: 15, h: 32 },
+          icon: "🪟",
+          contenu: `
+            <div class="generic-object-view">
+              <h3>🪟 Baie vitrée</h3>
+              <p style="margin-top: 0.5rem; color: #475569;">Une belle lumière naturelle traverse la pièce. C'est parfait pour vérifier les véritables nuances de couleurs sur les épreuves papier.</p>
+            </div>
+          `
+        }
+      ]
+    };
+
+    /* ==========================================================================
+       DATA: ENQUÊTE 4 - MÉDIATION NUMÉRIQUE
+       ========================================================================== */
+    const enquete4 = {
+      id: "enquete4",
+      titre: "Médiation Numérique",
+      ambiance: "Espace chaleureux, bienveillant et accueillant. Salle de formation équipée visible au fond, fiches pratiques illustrées aux murs.",
+      contexte: "17 h 15. Demain débute un atelier d'initiation au numérique pour adultes très débutants. Les médiateurs finalisent la préparation.",
+      indices: [
+        {
+          id: "e4_agenda",
+          nom: "Planning des ateliers",
+          support: "Agenda",
+          type: "notebook",
+          position: { x: 15, y: 55, w: 5, h: 12 },
+          icon: "📅",
+          contenu: `
+            <div class="notebook-paper">
+              <div class="notebook-title">Programme Atelier Débutants - Mercredi</div>
+              <div>09h00 — Accueil café &amp; installation</div>
+              <div>09h15 — Présentations &amp; attentes</div>
+              <div>09h30 — Découverte du clavier et de la souris</div>
+              <div>10h15 — Pause café</div>
+              <div>10h30 — Naviguer sereinement sur Internet</div>
+              <div>11h15 — Prise en main libre &amp; exercices</div>
+              <div>11h45 — Questions et clôture</div>
+              <br>
+              <div style="color: #0284c7; font-weight: bold;">💡 Note : Ne pas hésiter à prendre plus de temps si le groupe en a besoin.</div>
+            </div>
+          `
+        },
+        {
+          id: "e4_teams",
+          nom: "Conversation Teams",
+          support: "Ecran d'ordinateur",
+          type: "teams",
+          position: { x: 52, y: 50, w: 10, h: 10 },
+          icon: "💬",
+          contenu: `
+            <div class="teams-client">
+              <div class="teams-header" style="background: #ea580c;">💬 Chat Médiation - Karim & Élodie</div>
+              <div class="teams-messages">
+                <div class="teams-msg">
+                  <div class="teams-msg-author">Karim</div>
+                  <div class="teams-msg-text">J'ai eu Madame Bernard au téléphone.</div>
+                </div>
+                <div class="teams-msg" style="align-self: flex-end; background: #e1dfdd;">
+                  <div class="teams-msg-author" style="color:#2b2b2b;">Élodie</div>
+                  <div class="teams-msg-text">Elle vient demain ?</div>
+                </div>
+                <div class="teams-msg">
+                  <div class="teams-msg-author">Karim</div>
+                  <div class="teams-msg-text">Oui. Elle m'a dit qu'elle avait peur de ralentir le groupe...</div>
+                </div>
+                <div class="teams-msg" style="align-self: flex-end; background: #e1dfdd;">
+                  <div class="teams-msg-author" style="color:#2b2b2b;">Élodie</div>
+                  <div class="teams-msg-text">On prendra le temps qu'il faut. Comme pour tout le monde 😌</div>
+                </div>
+              </div>
+            </div>
+          `
+        },
+        {
+          id: "e4_carnet",
+          nom: "Checklist",
+          support: "Carnet de notes",
+          type: "notebook",
+          position: { x: 15, y: 65, w: 5, h: 10 },
+          icon: "📝",
+          contenu: `
+            <div class="notebook-paper">
+              <div class="notebook-title">À ne pas oublier pour demain :</div>
+              <div>☑ Vérifier le fonctionnement des ordinateurs</div>
+              <div>☑ Préparer navigateur et liens d'exercices</div>
+              <div>☑ Imprimer fiches mémo taille XL</div>
+              <br>
+              <div style="font-size: 1.1rem; color: #dc2626; font-weight: bold; text-align: center;">
+                🤝 Accompagner, mais NE PAS FAIRE à la place !
+              </div>
+            </div>
+          `
+        },
+        {
+          id: "e4_outlook",
+          nom: "E-mail de remerciement",
+          support: "Boîte mail Outlook",
+          type: "email",
+          position: { x: 23, y: 55, w: 10, h: 10 },
+          icon: "✉️",
+          contenu: `
+            <div class="email-client">
+              <div class="email-header" style="background: #127CD6;">📧 Message reçu - Marie</div>
+              <div class="email-meta">
+                <div><span>De :</span> Marie &lt;marie.d@mail.fr&gt;</div>
+                <div><span>Objet :</span> Merci beaucoup !</div>
+              </div>
+              <div class="email-content">Bonjour,
+
+Je voulais simplement vous remercier.
+Je n'avais jamais osé faire mes démarches sur Internet. Grâce à vos ateliers, j'ai réussi à prendre un rendez-vous médical toute seule.
+
+Encore merci !
+
+Marie</div>
+            </div>
+          `
+        },
+        {
+          id: "e4_sms",
+          nom: "Conversation SMS",
+          support: "Smartphone",
+          type: "sms",
+          position: { x: 33, y: 70, w: 6, h: 10 },
+          icon: "📱",
+          contenu: `
+            <div class="phone-mockup">
+              <div class="phone-screen">
+                <div style="text-align: center; font-size: 0.8rem; color: #8e8e93; margin-bottom: 0.75rem;">Messaoud</div>
+                <div class="sms-bubble">Tu te rappelles Jean-Michel ? Celui qui disait qu'il était trop vieux pour apprendre ?</div>
+                <div class="sms-bubble sent">Oui !</div>
+                <div class="sms-bubble">Aujourd'hui il aide même son voisin à envoyer des e-mails.</div>
+                <div class="sms-bubble sent">C’est ce genre de trucs qui me rappellent pourquoi on fait ça 😌</div>
+              </div>
+            </div>
+          `
+        },
+        {
+          id: "e4_paperboard",
+          nom: "Paperboard",
+          support: "Charte du groupe",
+          type: "whiteboard",
+          position: { x: 70, y: 12, w: 20, h: 32 },
+          icon: "📜",
+          contenu: `
+            <div class="whiteboard-view" style="font-family: sans-serif; line-height: 1.8;">
+              <h3 style="color: #c2410c; text-align: center; border-bottom: 2px solid #fdba74;">☀️ Charte de Bienveillance du Groupe</h3>
+              <ul style="margin-top: 1rem; list-style: circle; padding-left: 1.2rem;">
+                <li>Encourager la prise d'initiative</li>
+                <li>Ne jamais se moquer</li>
+                <li>Être patient / respecter le rythme de chacun.e</li>
+                <li>Partager ses réussites</li>
+                <li>Prendre des pauses café dans la bonne humeur !</li>
+              </ul>
+            </div>
+          `
+        },
+        {
+          id: "e4_tel",
+          nom: "Conversation téléphonique",
+          support: "Appel d'un bénéficiaire",
+          type: "chat",
+          position: { x: 25, y: 22, w: 10, h: 15 },
+          icon: "📞",
+          contenu: `
+            <div class="generic-object-view" style="background: #fff7ed; border: 1px solid #ffedd5;">
+              <h4 style="color: #ea580c;">📞 Échange téléphonique</h4>
+              <p><strong>Philippe :</strong> Bonjour... Je voulais vous dire... Je suis un peu stressé. Je n'ai presque jamais utilisé un ordinateur. J’hésite, je ne sais pas si je vais venir.</p>
+              <p style="margin-top: 0.5rem;"><strong>Linda :</strong> Ne vous inquiétez pas du tout Philippe. Beaucoup de personnes commencent exactement comme vous. Nous irons pas à pas, à votre propre rythme.</p>
+            </div>
+          `
+        },
+        {
+          id: "e4_affichage",
+          nom: "Photos des ateliers",
+          support: "Mur de réussites",
+          type: "photo",
+          position: { x: 44, y: 15, w: 11, h: 16 },
+          icon: "🖼️",
+          contenu: `
+            <div class="generic-object-view">
+              <h3>🖼️ Réussites des participants</h3>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; margin-top: 0.75rem; font-size: 0.8rem; text-align: center;">
+                <div style="background: #f1f5f9; padding: 0.4rem; border-radius: 4px;">✉️ Premier e-mail envoyé</div>
+                <div style="background: #f1f5f9; padding: 0.4rem; border-radius: 4px;">📄 Premier CV créé</div>
+                <div style="background: #f1f5f9; padding: 0.4rem; border-radius: 4px;">🔍 Recherche d'emploi</div>
+                <div style="background: #f1f5f9; padding: 0.4rem; border-radius: 4px;">📹 Appel vidéo famille</div>
+              </div>
+            </div>
+          `
+        },
+        {
+          id: "e4_mug",
+          nom: "Tasse de café",
+          support: "Objet",
+          type: "object",
+          position: { x: 48, y: 62, w: 3, h: 3 },
+          icon: "☕",
+          contenu: `
+            <div class="generic-object-view" style="text-align: center;">
+              <div style="font-size: 3rem; margin-bottom: 0.5rem;">☕</div>
+              <h3>Mug Céramique</h3>
+              <p style="font-weight: bold; color: #ea580c; margin-top: 0.5rem; font-size: 1.1rem;">« Il n'y a pas de question bête. »</p>
+            </div>
+          `
+        },
+        {
+          id: "e4_carte",
+          nom: "Carte postale accrochée",
+          support: "Citation",
+          type: "photo",
+          position: { x: 12, y: 42, w: 7, h: 12 },
+          icon: "🏞️",
+          contenu: `
+            <div class="generic-object-view" style="text-align: center; background: #fffbebfb;">
+              <p style="font-size: 1.1rem; color: #b45309; font-weight: bold;">
+                « La patience est aussi une compétence. »
+              </p>
+            </div>
+          `
+        },
+        {
+          id: "e4_photo",
+          nom: "Photo du groupe précédent",
+          support: "Cadre souvenir",
+          type: "photo",
+          position: { x: 62, y: 60, w: 6, h: 8 },
+          icon: "🖼️",
+          contenu: `
+            <div class="generic-object-view" style="text-align: center;">
+              <p style="font-size: 2rem;">👥💻</p>
+              <p style="font-weight: bold;">Un groupe de stagiaires ravis devant leurs écrans.</p>
+              <p style="color: #64748b; font-size: 0.85rem; margin-top: 0.5rem;">Au dos : Stage été 2025</p>
+            </div>
+          `
+        },
+        {
+          id: "e4_plante",
+          nom: "Plante près de la baie",
+          support: "Décor",
+          type: "decor",
+          position: { x: 88, y: 58, w: 8, h: 22 },
+          icon: "🪴",
+          contenu: `
+            <div class="generic-object-view">
+              <h3>🪴 Grande Plante Verte</h3>
+              <p style="margin-top: 0.5rem; color: #475569;">Une belle plante épanouie qui profite de la lumière naturelle. L'ambiance générale est très apaisante.</p>
+            </div>
+          `
+        },
+        {
+          id: "e4_cafetiere",
+          nom: "Cafetière",
+          support: "Objet",
+          type: "decor",
+          position: { x: 82, y: 12, w: 12, h: 28 },
+          icon: "☕",
+          contenu: `
+            <div class="generic-object-view">
+              <h3>☕ Une cafetière et des tasses</h3>
+              <p style="margin-top: 0.5rem; color: #475569;">Le café est prêt à couler pour l'accueil de demain matin. La convivialité fait partie intégrante de l'apprentissage.</p>
+            </div>
+          `
+        },
+        {
+          id: "e4_feutres",
+          nom: "Boîte de feutres de couleur",
+          support: "Matériel pédagogique",
+          type: "decor",
+          position: { x: 32, y: 60, w: 8, h: 5 },
+          icon: "✏️",
+          contenu: `
+            <div class="generic-object-view">
+              <h3>✏️ Boîte de marqueurs multicolores</h3>
+              <p style="margin-top: 0.5rem; color: #475569;">Des marqueurs de toutes les couleurs pour écrire sur le paperboard. Tout est prêt pour le prochain atelier.</p>
+            </div>
+          `
+        },
+        {
+          id: "e4_fenetre",
+          nom: "Baie vitrée vers la salle de cours",
+          support: "Salle de formation",
+          type: "decor",
+          position: { x: 3, y: 5, w: 15, h: 32 },
+          icon: "🖥️",
+          contenu: `
+            <div class="generic-object-view">
+              <h3>🖥️ Salle de formation</h3>
+              <p style="margin-top: 0.5rem; color: #475569;">Une douzaine de postes de travail sont déjà allumés avec de grands écrans et des casques audio prêts à être utilisés.</p>
+            </div>
+          `
+        }
+      ]
+    };
+
+    /* ==========================================================================
+       APPLICATION STATE & CONTROLLER
+       ========================================================================== */
+    const allEnquetes = {
+      enquete1: enquete1,
+      enquete2: enquete2,
+      enquete3: enquete3,
+      enquete4: enquete4
+    };
+
+    let currentEnquete = null;
+    const visitedIndices = {
+      enquete1: new Set(),
+      enquete2: new Set(),
+      enquete3: new Set(),
+      enquete4: new Set()
+    };
+
+    // Navigation controller
+    function showScreen(screenId) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      document.querySelectorAll('.screen').forEach(screen => {
+        screen.classList.remove('active');
+      });
+      const target = document.getElementById(screenId);
+      if (target) {
+        target.classList.add('active');
+      }
+      updateProgressCounters();
+    }
+
+    // Progress updates for menu cards
+    function updateProgressCounters() {
+      for (const [key, enquete] of Object.entries(allEnquetes)) {
+        const total = enquete.indices.length;
+        const visited = visitedIndices[key].size;
+        const badge = document.getElementById(`prog-eq${key.replace('enquete', '')}`);
+        if (badge) {
+          badge.textContent = `${visited} / ${total} indices vus`;
+        }
+      }
+    }
+
+    // Start an investigation scene
+    function startInvestigation(enqueteKey) {
+      currentEnquete = allEnquetes[enqueteKey];
+      if (!currentEnquete) return;
+
+      // Set titles
+      document.getElementById('inv-title').textContent = currentEnquete.titre;
+      document.getElementById('inv-context').textContent = currentEnquete.contexte;
+
+      // Render interactive overlay elements over the office background
+      renderInteractiveOverlay();
+      updateInvestigationStats();
+
+      showScreen('screen-investigation');
+    }
+
+    // Render interactive items onto the desk viewport
+    function renderInteractiveOverlay() {
+      const container = document.getElementById('interactive-overlay');
+      container.innerHTML = '';
+
+      const visitedSet = visitedIndices[currentEnquete.id];
+
+      currentEnquete.indices.forEach(indice => {
+        const el = document.createElement('div');
+        el.className = `interactive-item ${visitedSet.has(indice.id) ? 'visited' : ''}`;
+        
+        // Position percentage relative to 16:9 viewport
+        el.style.left = `${indice.position.x}%`;
+        el.style.top = `${indice.position.y}%`;
+        el.style.width = `${indice.position.w}%`;
+        el.style.height = `${indice.position.h}%`;
+
+        // Inner Visual Icon / Style
+        el.innerHTML = `
+          <span style="font-size: 1.6rem; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));">${indice.icon || '🔍'}</span>
+          <div class="item-tooltip">${indice.nom}</div>
+        `;
+
+        el.onclick = () => openClueModal(indice);
+
+        container.appendChild(el);
+      });
+    }
+
+    // Update investigation counter
+    function updateInvestigationStats() {
+      if (!currentEnquete) return;
+      const total = currentEnquete.indices.length;
+      const visited = visitedIndices[currentEnquete.id].size;
+      document.getElementById('inv-counter').textContent = `Indices découverts : ${visited} / ${total}`;
+    }
+
+    // Modal Interaction
+    function openClueModal(indice) {
+      if (!currentEnquete) return;
+
+      // Mark visited
+      visitedIndices[currentEnquete.id].add(indice.id);
+      updateInvestigationStats();
+      renderInteractiveOverlay();
+
+      // Populate Modal
+      document.getElementById('modal-title-text').textContent = `${indice.support} — ${indice.nom}`;
+      document.getElementById('modal-body-content').innerHTML = indice.contenu;
+
+      document.getElementById('clue-modal').classList.add('active');
+    }
+
+    function closeModal() {
+      document.getElementById('clue-modal').classList.remove('active');
+    }
+
+    // Open Synthesis Screen
+    function openSynthesis() {
+      if (!currentEnquete) return;
+      document.getElementById('synthesis-pole-name').textContent = `Pôle exploré : ${currentEnquete.titre}`;
+      showScreen('screen-synthesis');
+document.getElementById('screen-synthesis').scrollIntoView({ 
+    behavior: 'smooth', 
+    block: 'start' 
+  });
+    }
+
+    function finishSynthesis() {
+      // 1. Récupération des valeurs
+      const goal = document.getElementById('syn-goal').value.trim() || "Non renseigné";
+      const conditions = document.getElementById('syn-conditions').value.trim() || "Non renseigné";
+      const qualities = document.getElementById('syn-qualities').value.trim() || "Non renseigné";
+      const missions = document.getElementById('syn-missions').value.trim() || "Non renseigné";
+      const tools = document.getElementById('syn-tools').value.trim() || "Non renseigné";
+
+
+      // 2. Injection des données
+      document.getElementById('summary-pole-name').textContent = `Pôle : ${currentEnquete ? currentEnquete.titre : 'Inconnu'}`;
+      document.getElementById('sum-goal').textContent = goal;
+      document.getElementById('sum-conditions').textContent = conditions;
+      document.getElementById('sum-qualities').textContent = qualities;
+      document.getElementById('sum-missions').textContent = missions;
+      document.getElementById('sum-tools').textContent = tools;
+
+
+      // 3. Passage à l'écran de livrable
+      showScreen('screen-summary');
+      
+      // Alignement fluide spécifiquement sur le bloc de la synthèse
+      document.getElementById('screen-summary').scrollIntoView({ 
+        behavior: 'smooth', 
+        block: 'start' 
+      });
+    }
+
+    // Fonction pour retourner au formulaire d'édition
+    function editSynthesis() {
+      showScreen('screen-synthesis');
+      document.getElementById('screen-synthesis').scrollIntoView({ 
+        behavior: 'smooth', 
+        block: 'start' 
+      });
+    }
+    // Initialize UI
+    updateProgressCounters();
+  </script>
+</body>
+</html>
